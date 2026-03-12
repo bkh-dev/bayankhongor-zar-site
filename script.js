@@ -8,6 +8,11 @@
     const ADS_KEY = "bh_ads";
     const INBOX_KEY = "bayankhongor_inbox_messages";
     const UI_STATE_KEY = "bh_ui_state";
+
+    const SUPABASE_URL = "https://dtxrbjppxyggjkpybdcu.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_YGhtBnurAg3otWaBMXKjvQ_TQRQkvc9";
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const FAVORITES_KEY = "bh_favorites";
     const COMPARED_KEY = "bh_compared";
     const CURRENT_USER_KEY = "bh_current_user";
