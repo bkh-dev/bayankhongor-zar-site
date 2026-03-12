@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зарын дэлгэрэнгүй</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 1000px;
+            max-width: calc(100% - 40px);
+            margin: 30px auto;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .detail-image-wrap {
+            width: 100%;
+            height: 450px;
+            background: #eef2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-no-image {
+            color: #64748b;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .detail-thumbnails {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            flex-wrap: wrap;
+        }
+
+        .detail-thumb {
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+        }
+
+        .vip-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: #f59e0b;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 999px;
+        }
+
+        .detail-content {
+            padding: 25px;
+        }
+
+        .title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #16a34a;
+            margin-bottom: 16px;
+        }
+
+        .meta {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .description {
+            margin-top: 20px;
+            line-height: 1.8;
+            font-size: 16px;
+            word-break: break-word;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .favorite-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-left: 10px;
+            background: #e11d48;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .not-found {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .related-section,
+        .seller-section {
+            margin-top: 30px;
+        }
+
+        .related-title,
+        .seller-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .related-grid,
+        .seller-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .related-card,
+        .seller-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .related-card a,
+        .seller-card a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+        }
+
+        .related-image-wrap,
+        .seller-image {
+            width: 100%;
+            height: 180px;
+            background: #eef2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .related-image-wrap img,
+        .seller-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .related-no-image {
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        .related-content,
+        .seller-content {
+            padding: 14px;
+        }
+
+        .related-name,
+        .seller-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .related-price,
+        .seller-price {
+            color: #16a34a;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .related-location {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        @media (max-width: 800px) {
+
+            .related-grid,
+            .seller-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .detail-image-wrap {
+                height: 260px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .price {
+                font-size: 22px;
+            }
+
+            .prev-next-box {
+                margin-top: 24px;
+                margin-bottom: 10px;
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .prev-next-link {
+                display: inline-block;
+                background: white;
+                color: #2563eb;
+                text-decoration: none;
+                padding: 12px 16px;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+                font-weight: bold;
+            }
+
+            body.dark-mode {
+                background: #0f172a;
+                color: #e5e7eb;
+            }
+
+            body.dark-mode header,
+            body.dark-mode .detail-card,
+            body.dark-mode .related-card,
+            body.dark-mode .seller-card,
+            body.dark-mode .not-found {
+                background: #1e293b;
+                color: #e5e7eb;
+            }
+
+            body.dark-mode .meta,
+            body.dark-mode .description,
+            body.dark-mode .related-location {
+                color: #cbd5e1;
+            }
+
+            body.dark-mode .logo {
+                color: #60a5fa;
+            }
+
+            body.dark-mode .detail-no-image,
+            body.dark-mode .related-no-image,
+            body.dark-mode .seller-image {
+                color: #cbd5e1;
+            }
+
+            body.dark-mode .detail-thumbnails {
+                background: #1e293b;
+            }
+
+            .contact-modal-content h2 {
+                margin-top: 0;
+                margin-bottom: 18px;
+            }
+
+            .contact-info {
+                margin-bottom: 14px;
+                color: #475569;
+            }
+
+            .contact-modal-content input,
+            .contact-modal-content textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 10px;
+                font-size: 14px;
+                margin-bottom: 12px;
+                outline: none;
+            }
+
+            .contact-modal-content textarea {
+                min-height: 120px;
+                resize: vertical;
+            }
+
+            .contact-send-btn {
+                background: #2563eb;
+                color: white;
+                border: none;
+                padding: 12px 16px;
+                border-radius: 10px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .contact-close-btn {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                border: none;
+                background: #e5e7eb;
+                width: 34px;
+                height: 34px;
+                border-radius: 999px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            .toast-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 99999;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .toast {
+                min-width: 260px;
+                max-width: 360px;
+                padding: 14px 16px;
+                border-radius: 12px;
+                color: white;
+                font-weight: 700;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+                animation: toastSlideIn 0.25s ease;
+            }
+
+            .toast.success {
+                background: #16a34a;
+            }
+
+            .toast.error {
+                background: #dc2626;
+            }
+
+            .toast.info {
+                background: #2563eb;
+            }
+
+            @keyframes toastSlideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px) translateX(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0) translateX(0);
+                }
+            }
+
+            body.dark-mode .contact-modal-content {
+                background: #1e293b;
+                color: #e5e7eb;
+            }
+
+            body.dark-mode .contact-info {
+                color: #cbd5e1;
+            }
+
+            body.dark-mode .contact-modal-content input,
+            body.dark-mode .contact-modal-content textarea {
+                background: #0f172a;
+                color: #e5e7eb;
+                border-color: #334155;
+            }
+
+            body.dark-mode .contact-close-btn {
+                background: #334155;
+                color: white;
+            }
+        }
+
+        .detail-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 280px;
+            gap: 22px;
+            align-items: start;
+        }
+
+        .detail-main {
+            min-width: 0;
+        }
+
+        .detail-side {
+            position: sticky;
+            top: 20px;
+        }
+
+        .detail-card {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            border: 1px solid #dbe4f0;
+        }
+
+        .detail-image-wrap {
+            height: 520px;
+            background: #eef2f7;
+        }
+
+        .detail-thumbnails {
+            gap: 8px;
+            padding: 10px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .detail-thumb {
+            width: 76px;
+            height: 60px;
+            border-radius: 6px;
+            border: 2px solid #d1d5db;
+        }
+
+        .detail-thumb.active {
+            border-color: #2563eb;
+        }
+
+        .detail-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .detail-title-box {
+            min-width: 0;
+        }
+
+        .title {
+            font-size: 34px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .detail-submeta {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .detail-actions-inline {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 16px 0 18px;
+        }
+
+        .detail-side-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .detail-side-price {
+            background: #f6df7c;
+            color: #111827;
+            font-size: 28px;
+            font-weight: 900;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+
+        .detail-side-location {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 4px;
+            color: #5b4b12;
+        }
+
+        .detail-cta-btn {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 13px 14px;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .detail-cta-btn.phone {
+            background: #ff2b1c;
+        }
+
+        .detail-cta-btn.chat {
+            background: #ff2b1c;
+        }
+
+        .detail-warning {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .detail-seller-name {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .detail-seller-meta {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .detail-specs {
+            margin-top: 22px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .detail-specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .detail-spec-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .detail-spec-item:nth-child(odd) {
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .detail-spec-label {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .detail-spec-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+            text-align: right;
+        }
+
+        .detail-description-box {
+            margin-top: 20px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .detail-description-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .detail-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-side {
+                position: static;
+            }
+
+            .detail-image-wrap {
+                height: 320px;
+            }
+
+            .detail-specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-spec-item:nth-child(odd) {
+                border-right: none;
+            }
+        }
+
+        body.dark-mode .detail-side-card,
+        body.dark-mode .detail-specs,
+        body.dark-mode .detail-description-box {
+            background: #1e293b;
+            border-color: #334155;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .detail-submeta,
+        body.dark-mode .detail-spec-label,
+        body.dark-mode .detail-seller-meta {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .detail-spec-value {
+            color: #f8fafc;
+        }
+
+        body.dark-mode .detail-thumb {
+            border-color: #475569;
+        }
+
+        body.dark-mode .detail-thumb.active {
+            border-color: #60a5fa;
+        }
+
+        .contact-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .contact-modal.show {
+            display: flex;
+        }
+
+        .contact-modal-content {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-modal-content h2 {
+            margin-top: 0;
+            margin-bottom: 18px;
+        }
+
+        .contact-info {
+            margin-bottom: 14px;
+            color: #475569;
+        }
+
+        .contact-modal-content input,
+        .contact-modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .contact-modal-content textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-send-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .contact-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            border: none;
+            background: #e5e7eb;
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        body.dark-mode .contact-modal-content {
+            background: #1e293b;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .contact-info {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .contact-modal-content input,
+        body.dark-mode .contact-modal-content textarea {
+            background: #0f172a;
+            color: #e5e7eb;
+            border-color: #334155;
+        }
+
+        body.dark-mode .contact-close-btn {
+            background: #334155;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Баянхонгор Аймгийн Зар</a>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← Буцах</a>
+        <button id="favoriteBtn" class="favorite-btn">🤍 Хадгалах</button>
+        <button id="shareBtn" class="favorite-btn" style="background:#2563eb;">Линк хуулах</button>
+        <button id="themeToggleBtn" class="favorite-btn" style="background:#6b7280;">Dark mode</button>
+        <div id="detailAuthStatus" style="margin-bottom:20px; color:#475569; font-weight:600;">Хэрэглэгч: нэвтрээгүй
+        </div>
+
+        <div id="detailContainer"></div>
+        <div id="prevNextContainer"></div>
+        <div id="relatedAdsContainer"></div>
+        <div id="sellerAdsContainer"></div>
+        <div id="contactModal" class="contact-modal">
+            <div class="contact-modal-content">
+                <button id="closeContactModal" class="contact-close-btn">✕</button>
+                <h2>Худалдагчтай холбогдох</h2>
+
+                <div class="contact-info">
+                    <p><strong>Зар оруулагч:</strong> <span id="modalSellerName">-</span></p>
+                    <p><strong>Утас:</strong> <span id="modalSellerPhone">-</span></p>
+                </div>
+
+                <input type="text" id="buyerNameInput" placeholder="Таны нэр">
+                <textarea id="buyerMessageInput" placeholder="Сайн байна уу, энэ зар сонирхож байна..."></textarea>
+
+                <button id="sendMessageBtn" class="contact-send-btn">Мессеж илгээх</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="detail.js"></script>
+    <div id="toastContainer" class="toast-container"></div>
+</body>
+
+</html>

@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Баянхонгор Аймгийн Зар</title>
+
+    <style>
+        :root {
+            --brand-blue: #0f5eea;
+            --brand-blue-dark: #0a47b8;
+            --brand-blue-soft: #eaf2ff;
+            --accent-yellow: #ffd54a;
+            --page-bg: #eef3f9;
+            --card-bg: #ffffff;
+            --text-main: #132238;
+            --text-soft: #5b6b80;
+            --border-soft: #d9e3f0;
+            --danger: #dc2626;
+            --success: #16a34a;
+            --pink: #e11d48;
+            --violet: #4f46e5;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #edf4ff 0%, #f6f9fc 220px, #eef3f9 100%);
+            color: var(--text-main);
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--brand-blue-dark), var(--brand-blue));
+            padding: 16px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 24px rgba(15, 94, 234, 0.18);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .brand-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            line-height: 1.1;
+        }
+
+        .logo {
+            font-size: 34px;
+            font-weight: 900;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .brand-sub {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .top-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-badge {
+            background: rgba(255, 255, 255, 0.16);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .my-ads-btn {
+            background: rgba(255, 255, 255, 0.14);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+            transition: 0.2s ease;
+        }
+
+        .my-ads-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .my-ads-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .my-ads-btn.favorite {
+            background: rgba(225, 29, 72, 0.9);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .my-ads-btn.active {
+            outline: 2px solid rgba(255, 255, 255, 0.85);
+            transform: translateY(-1px);
+        }
+
+        .post-ad-btn {
+            background: var(--accent-yellow);
+            color: #1f2937;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .current-user-box,
+        .search-box,
+        .add-form,
+        .sidebar,
+        .results-header {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+            border: 1px solid var(--border-soft);
+        }
+
+        .current-user-box {
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .current-user-row {
+            display: grid;
+            grid-template-columns: 1fr 180px 180px;
+            gap: 10px;
+        }
+
+        .current-user-box input,
+        .search-box input,
+        .search-box select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 2px solid #c8d8ef;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        .search-box input:focus,
+        .search-box select:focus,
+        .add-form input:focus,
+        .add-form select:focus,
+        .add-form textarea:focus,
+        .current-user-box input:focus {
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 3px rgba(15, 94, 234, 0.08);
+        }
+
+        .current-user-status {
+            margin-top: 10px;
+            color: var(--text-soft);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 20px;
+            margin-bottom: 22px;
+            border-radius: 18px;
+            background: #dfe9f7;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+            border: 1px solid var(--border-soft);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-soft);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--brand-blue);
+        }
+
+        @media (max-width: 1100px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .search-history-box {
+            margin-top: 14px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .history-chip {
+            background: #eef4ff;
+            color: var(--brand-blue-dark);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .history-chip.clear-chip {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1.5fr 130px 170px 150px 150px 170px 120px;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-btn,
+        .submit-btn,
+        .cancel-btn,
+        .edit-btn,
+        .delete-btn,
+        .fav-btn {
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            font-weight: 800;
+            padding: 12px 14px;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800;
+            padding: 12px 14px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-dark));
+        }
+
+        .cancel-btn {
+            background: #64748b;
+            display: none;
+        }
+
+        .page-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .sidebar {
+            padding: 22px;
+            position: sticky;
+            top: 96px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+            border: 1px solid var(--border-soft);
+        }
+
+        .sidebar-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--brand-blue-dark);
+        }
+
+        .category-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .category-item {
+            background: #f8fbff;
+            border: 1px solid #dbe7f5;
+            border-radius: 14px;
+            padding: 13px 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 700;
+            color: #1e3a5f;
+        }
+
+        .category-item:hover,
+        .category-item.active {
+            background: linear-gradient(135deg, #e7f0ff, #d9e8ff);
+            border-color: var(--brand-blue);
+            color: var(--brand-blue-dark);
+        }
+
+        .sidebar small {
+            color: var(--text-soft);
+            display: block;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .add-form {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .add-form h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .edit-mode-text {
+            color: #f59e0b;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .add-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .preview-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .preview-box img {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .checkbox-row input {
+            width: auto;
+            margin: 0;
+        }
+
+        .results-header {
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: white;
+            border-radius: 18px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .results-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: #0d2b57;
+        }
+
+        .results-count {
+            color: var(--text-soft);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .filter-mode {
+            font-size: 14px;
+            color: var(--brand-blue);
+            font-weight: 800;
+        }
+
+        .ads {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .list-section {
+            margin-bottom: 24px;
+        }
+
+        .list-section-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+
+        .vip-section-title {
+            color: #2563eb;
+        }
+
+        .normal-section-title {
+            color: #0f5eea;
+        }
+
+        .top-section-title {
+            color: var(--violet);
+        }
+
+        .ad-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            transition: 0.22s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            position: relative;
+            border: 1px solid #dde7f2;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 34px rgba(15, 23, 42, 0.14);
+        }
+
+        .ad-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            flex: 1;
+        }
+
+        .image-wrap {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            background: #edf3fa;
+        }
+
+        .ad-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 15px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #e2e8f0, #f8fafc);
+        }
+
+        .vip-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 10px;
+            border-radius: 999px;
+            z-index: 2;
+        }
+
+        .top-badge-card {
+            position: absolute;
+            top: 44px;
+            left: 10px;
+            background: var(--violet);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 10px;
+            border-radius: 999px;
+            z-index: 2;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 10px;
+            border-radius: 999px;
+            z-index: 2;
+        }
+
+        .status-active {
+            background: var(--success);
+        }
+
+        .status-sold {
+            background: var(--danger);
+        }
+
+        .ad-content {
+            padding: 12px;
+        }
+
+        .ad-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            min-height: 38px;
+            line-height: 1.35;
+            color: #10233d;
+        }
+
+        .price {
+            color: var(--brand-blue);
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+
+        .location {
+            color: var(--text-soft);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .category {
+            color: var(--brand-blue);
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .description {
+            color: #3f4b5c;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            min-height: 34px;
+            word-break: break-word;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 13px;
+            color: #6b7a90;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .edit-btn {
+            background: #f59e0b;
+        }
+
+        .delete-btn {
+            background: var(--danger);
+        }
+
+        .fav-btn {
+            background: var(--pink);
+        }
+
+        .empty-box {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            color: var(--text-soft);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            grid-column: 1 / -1;
+            border: 1px solid var(--border-soft);
+        }
+
+        .pagination {
+            margin-top: 22px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn {
+            border: 1px solid #d1dce9;
+            background: white;
+            color: #334155;
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            min-width: 44px;
+        }
+
+        .page-btn.active {
+            background: var(--brand-blue);
+            color: white;
+            border-color: var(--brand-blue);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .contact-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .contact-modal.show {
+            display: flex;
+        }
+
+        .contact-modal-content {
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #deleteModalText strong {
+            color: #b91c1c;
+        }
+
+        .contact-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            border: none;
+            background: #e5e7eb;
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        body.dark-mode .contact-modal-content {
+            background: #1e293b;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .contact-close-btn {
+            background: #334155;
+            color: white;
+        }
+
+        .inbox-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: #fff;
+        }
+
+        .inbox-item-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .inbox-item-meta {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .inbox-item-message {
+            line-height: 1.6;
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .compare-table th {
+            background: #f8fafc;
+            font-weight: bold;
+        }
+
+        .compare-select-row {
+            margin-bottom: 12px;
+        }
+
+        .compare-check {
+            margin-right: 8px;
+        }
+
+        .ad-card.vip-card {
+            border-color: #60a5fa;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+        }
+
+        .ad-card.top-card {
+            border-color: #6366f1;
+            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.2);
+            animation: topGlow 2s infinite ease-in-out;
+        }
+
+        .ad-card.top-card.vip-card {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 22px rgba(59, 130, 246, 0.24);
+        }
+
+        .quick-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            grid-column: 1 / -1;
+        }
+
+        .quick-filter-btn {
+            border: 1px solid #cfe0f5;
+            background: white;
+            color: #24476f;
+            padding: 10px 15px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .quick-filter-btn.active {
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-dark));
+            color: white;
+            border-color: transparent;
+        }
+
+        @keyframes topGlow {
+            0% {
+                box-shadow: 0 4px 18px rgba(99, 102, 241, 0.18);
+            }
+
+            50% {
+                box-shadow: 0 8px 26px rgba(99, 102, 241, 0.34);
+            }
+
+            100% {
+                box-shadow: 0 4px 18px rgba(99, 102, 241, 0.18);
+            }
+        }
+
+        body.dark-mode .compare-table th,
+        body.dark-mode .compare-table td {
+            border-color: #334155;
+        }
+
+        body.dark-mode .compare-table th {
+            background: #0f172a;
+        }
+
+        body.dark-mode .inbox-item {
+            background: #0f172a;
+            border-color: #334155;
+        }
+
+        body.dark-mode .inbox-item-meta {
+            color: #cbd5e1;
+        }
+
+        footer {
+            margin-top: 40px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        @media (max-width: 1100px) {
+
+            .current-user-row,
+            .search-row {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .page-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .ads {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .current-user-row,
+            .search-row {
+                grid-template-columns: 1fr;
+            }
+
+            .ads {
+                grid-template-columns: 1fr;
+            }
+
+            .card-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            header {
+                padding: 15px 20px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .brand-wrap {
+                width: 100%;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            .my-ads-btn,
+            .post-ad-btn {
+                width: 100%;
+            }
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            min-width: 260px;
+            max-width: 360px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+            animation: toastSlideIn 0.25s ease;
+        }
+
+        .toast.success {
+            background: #16a34a;
+        }
+
+        .toast.error {
+            background: #dc2626;
+        }
+
+        .toast.info {
+            background: #2563eb;
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        body.dark-mode {
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode header,
+        body.dark-mode footer,
+        body.dark-mode .current-user-box,
+        body.dark-mode .search-box,
+        body.dark-mode .add-form,
+        body.dark-mode .sidebar,
+        body.dark-mode .results-header,
+        body.dark-mode .ad-card,
+        body.dark-mode .empty-box,
+        body.dark-mode .stat-card {
+            background: #1e293b;
+            color: #e5e7eb;
+            border-color: #334155;
+        }
+
+        body.dark-mode .search-box {
+            background: #16253d;
+        }
+
+        body.dark-mode .search-box input,
+        body.dark-mode .search-box select,
+        body.dark-mode .add-form input,
+        body.dark-mode .add-form select,
+        body.dark-mode .add-form textarea,
+        body.dark-mode .current-user-box input {
+            background: #0f172a;
+            color: #e5e7eb;
+            border-color: #334155;
+        }
+
+        body.dark-mode .category-item {
+            background: #0f172a;
+            color: #e5e7eb;
+            border-color: #334155;
+        }
+
+        body.dark-mode .category-item.active,
+        body.dark-mode .category-item:hover {
+            background: #1d4ed8;
+            color: white;
+            border-color: #1d4ed8;
+        }
+
+        body.dark-mode .logo,
+        body.dark-mode .results-count,
+        body.dark-mode .location,
+        body.dark-mode .meta-row,
+        body.dark-mode .description,
+        body.dark-mode .current-user-status,
+        body.dark-mode .sidebar small,
+        body.dark-mode .stat-label {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .price,
+        body.dark-mode .stat-value {
+            color: #60a5fa;
+        }
+
+        body.dark-mode .no-image {
+            background: #334155;
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .history-chip {
+            background: #334155;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .history-chip.clear-chip {
+            background: #7f1d1d;
+            color: white;
+        }
+
+        body.dark-mode .quick-filter-btn {
+            background: #334155;
+            color: #e5e7eb;
+            border-color: #475569;
+        }
+
+        body.dark-mode .quick-filter-btn.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        body.dark-mode .ad-card.vip-card {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.22);
+        }
+
+        body.dark-mode .ad-card.top-card {
+            border-color: #6366f1;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.28);
+        }
+
+        .auth-hint {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+        body.dark-mode .auth-hint {
+            color: #cbd5e1;
+        }
+
+        #addAdModal .contact-modal-content {
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+
+        #addAdModal .add-form input,
+        #addAdModal .add-form select,
+        #addAdModal .add-form textarea {
+            margin-bottom: 12px;
+        }
+
+        #addAdModal .form-actions {
+            margin-top: 14px;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .clean-ad-form {
+            padding-top: 6px;
+        }
+
+        .form-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .form-row-top {
+            align-items: start;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1e3a5f;
+            text-align: right;
+            padding-top: 2px;
+        }
+
+        .form-field {
+            width: 100%;
+        }
+
+        .clean-ad-form input,
+        .clean-ad-form select,
+        .clean-ad-form textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #cfd9e8;
+            border-radius: 10px;
+            font-size: 14px;
+            background: #fff;
+            box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        .clean-ad-form textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .form-help {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .clean-form-actions {
+            margin-top: 22px;
+            padding-left: 198px;
+        }
+
+        .clean-form-actions .submit-btn,
+        .clean-form-actions .cancel-btn {
+            min-width: 140px;
+        }
+
+        #imagePreviewBox {
+            margin-top: 6px;
+        }
+
+        @media (max-width: 700px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .form-label {
+                text-align: left;
+                padding-top: 0;
+            }
+
+            .clean-form-actions {
+                padding-left: 0;
+                flex-direction: column;
+            }
+        }
+
+        body.dark-mode .form-label {
+            color: #dbeafe;
+        }
+
+        body.dark-mode .clean-ad-form input,
+        body.dark-mode .clean-ad-form select,
+        body.dark-mode .clean-ad-form textarea {
+            background: #0f172a;
+            color: #e5e7eb;
+            border-color: #334155;
+        }
+
+        body.dark-mode .form-help {
+            color: #cbd5e1;
+        }
+
+        .category-list {
+            display: none;
+        }
+
+        .top-categories {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px 34px;
+            background: #f3f4f6;
+            border-radius: 0;
+            padding: 22px 10px 26px;
+            margin-bottom: 22px;
+            border: none;
+            box-shadow: none;
+        }
+
+        .top-category-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 12px;
+            transition: 0.2s ease;
+        }
+
+        .top-category-item:hover {
+            background: rgba(15, 94, 234, 0.08);
+        }
+
+        .top-category-item.active .top-category-text {
+            color: #0f5eea;
+        }
+
+        .top-category-icon {
+            font-size: 28px;
+            line-height: 1;
+            width: 34px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .top-category-text {
+            font-size: 15px;
+            font-weight: 800;
+            line-height: 1.25;
+            color: #111827;
+        }
+
+        @media (max-width: 1000px) {
+            .top-categories {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .top-categories {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px 18px;
+                padding: 18px 16px;
+            }
+
+            .top-category-text {
+                font-size: 14px;
+            }
+
+            .top-category-icon {
+                font-size: 24px;
+                width: 28px;
+            }
+        }
+
+        body.dark-mode .top-categories {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .top-category-text {
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .top-category-item:hover {
+            background: rgba(96, 165, 250, 0.12);
+        }
+
+        body.dark-mode .top-category-item.active .top-category-text {
+            color: #60a5fa;
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        .page-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .profile-line {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #334155;
+        }
+
+        .profile-line:last-child {
+            border-bottom: none;
+        }
+
+        body.dark-mode .profile-line {
+            border-bottom-color: #334155;
+            color: #e5e7eb;
+        }
+
+        .profile-card {
+            display: none;
+            margin-bottom: 20px;
+            padding: 22px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #ffffff, #f4f8ff);
+            border: 1px solid #dce7f5;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .profile-card-top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .profile-avatar {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0f5eea, #4f46e5);
+            color: white;
+            font-size: 24px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(15, 94, 234, 0.22);
+            flex-shrink: 0;
+        }
+
+        .profile-head-text {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .profile-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #123a78;
+            margin-bottom: 4px;
+        }
+
+        .profile-summary {
+            color: #5b6b80;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .profile-info-item {
+            background: white;
+            border: 1px solid #dfe8f4;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+        }
+
+        .profile-info-label {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .profile-info-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            word-break: break-word;
+        }
+
+        .profile-edit-box {
+            margin-top: 14px;
+            padding: 18px;
+            border-radius: 18px;
+            background: white;
+            border: 1px solid #dfe8f4;
+        }
+
+        .profile-edit-box input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #cfd9e8;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .profile-edit-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 800px) {
+            .profile-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card-top {
+                align-items: flex-start;
+            }
+        }
+
+        body.dark-mode .profile-card {
+            background: linear-gradient(135deg, #1e293b, #172131);
+            border-color: #334155;
+        }
+
+        body.dark-mode .profile-title {
+            color: #dbeafe;
+        }
+
+        body.dark-mode .profile-summary,
+        body.dark-mode .profile-info-label {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .profile-info-item,
+        body.dark-mode .profile-edit-box {
+            background: #0f172a;
+            border-color: #334155;
+        }
+
+        body.dark-mode .profile-info-value {
+            color: #f8fafc;
+        }
+
+        body.dark-mode .profile-edit-box input {
+            background: #111827;
+            color: #f8fafc;
+            border-color: #334155;
+        }
+
+        .subcategory-link:hover,
+        .subcategory-link.active {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .subcategory-header {
+            color: #60a5fa;
+            border-bottom-color: #334155;
+        }
+
+        body.dark-mode .subcategory-link {
+            color: #93c5fd;
+        }
+
+
+        .top-category-item-expandable {
+            display: block;
+            padding: 0;
+            background: transparent;
+        }
+
+        .top-category-main {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 0;
+            background: transparent;
+            text-align: left;
+        }
+
+        .top-category-item:hover .top-category-text,
+        .top-category-main:hover .top-category-text {
+            color: #2563eb;
+        }
+
+        .top-category-item.active .top-category-text,
+        .top-category-item.active .top-category-main .top-category-text {
+            color: #2563eb;
+        }
+
+        .inline-subcategory-panel {
+            display: none;
+            margin-top: 10px;
+            margin-left: 42px;
+            padding-top: 12px;
+            border-top: 1px solid #dbe4f0;
+        }
+
+        .inline-subcategory-panel.show {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .inline-subcategory-panel .subcategory-link {
+            background: transparent;
+            border: none;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+            text-align: left;
+            display: block;
+        }
+
+        .inline-subcategory-panel .subcategory-link:hover,
+        .inline-subcategory-panel .subcategory-link.active {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .inline-subcategory-panel {
+                margin-left: 0;
+            }
+
+            .inline-subcategory-panel.show {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        body.dark-mode .inline-subcategory-panel {
+            border-top-color: #334155;
+        }
+
+        body.dark-mode .inline-subcategory-panel .subcategory-link {
+            color: #93c5fd;
+        }
+
+        .inline-subcategory-panel .subcategory-link::before {
+            content: "▸";
+            margin-right: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .inline-subcategory-panel .subcategory-link.no-arrow::before {
+            content: "";
+            margin-right: 0;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                display: block;
+                padding: 12px 14px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .top-right {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                width: 100%;
+            }
+
+            .my-ads-btn,
+            .post-ad-btn {
+                width: 100%;
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0 14px 88px;
+                margin: 0;
+            }
+
+            .current-user-box,
+            .stats-grid {
+                display: none;
+            }
+
+            .search-box,
+            .results-header,
+            .profile-card {
+                display: block;
+            }
+
+            .top-categories {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 14px;
+            }
+
+            @media (max-width: 700px) {
+
+                body.dark-mode .mobile-all-categories-btn,
+                body.dark-mode .mobile-category-link {
+                    background: #1e293b;
+                    color: #e5e7eb;
+                    border-color: #334155;
+                }
+            }
+
+            .top-category-item,
+            .top-category-item-expandable {
+                display: block;
+                cursor: pointer;
+                padding: 0;
+                border-radius: 0;
+                transition: 0.2s ease;
+                background: transparent;
+                border: none;
+                min-height: auto;
+                box-shadow: none;
+            }
+
+            .top-category-main {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 0;
+                background: transparent;
+                text-align: left;
+            }
+
+            .top-category-icon {
+                font-size: 30px;
+                line-height: 1;
+                width: 28px;
+                text-align: center;
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .top-category-text {
+                font-size: 15px;
+                font-weight: 800;
+                line-height: 1.25;
+                color: #111827;
+            }
+
+            .inline-subcategory-panel {
+                margin-left: 0;
+                margin-top: 12px;
+                padding-top: 10px;
+            }
+
+            .ads {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .list-section-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .image-wrap {
+                height: 132px;
+            }
+
+            .ad-content {
+                padding: 10px;
+            }
+
+            .ad-title {
+                font-size: 14px;
+                min-height: 34px;
+                margin-bottom: 6px;
+            }
+
+            .price {
+                font-size: 16px;
+                margin-bottom: 4px;
+            }
+
+            .location,
+            .category,
+            .description,
+            .meta-row {
+                font-size: 12px;
+            }
+
+            .description {
+                min-height: 28px;
+                margin-bottom: 8px;
+            }
+
+            .card-actions {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .pagination,
+            #pageInfo {
+                display: none;
+            }
+
+            footer {
+                display: block;
+                margin-top: 20px;
+            }
+
+            body.dark-mode .mobile-topbar,
+            body.dark-mode .mobile-bottom-nav {
+                background: #0f172a;
+                border-color: #334155;
+            }
+
+            body.dark-mode .mobile-logo {
+                color: #60a5fa;
+            }
+
+            body.dark-mode .mobile-search-box,
+            body.dark-mode .mobile-grid-btn,
+            body.dark-mode .top-category-item,
+            body.dark-mode .top-category-item-expandable {
+                background: #1e293b;
+                color: #e5e7eb;
+                border-color: #334155;
+            }
+
+            body.dark-mode .mobile-nav-item {
+                color: #e5e7eb;
+            }
+
+            body.dark-mode .mobile-nav-item.active {
+                color: #f87171;
+            }
+        }
+
+        #toggleProfileEditBtn {
+            min-width: 110px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.14);
+            color: white;
+            font-weight: 700;
+        }
+
+        .profile-card #toggleProfileEditBtn {
+            background: #e2e8f0;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+        }
+
+        body.dark-mode .profile-card #toggleProfileEditBtn {
+            background: #334155;
+            color: #e5e7eb;
+            border-color: #475569;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="brand-wrap">
+                <a href="index.html" class="logo">Баянхонгор.ЗАР</a>
+                <div class="brand-sub">Баянхонгор аймгийн нэгдсэн зар
+                </div>
+            </div>
+
+            <div class="top-right">
+                <button class="my-ads-btn secondary" id="showAllAdsBtn">Бүх зар</button>
+                <button class="my-ads-btn" id="showMyAdsBtn">Миний зарууд</button>
+                <button class="my-ads-btn favorite" id="showFavoritesBtn">
+                    Хадгалсан (<span id="favoriteCountBadge">0</span>)
+                </button>
+                <button class="my-ads-btn secondary" id="openInboxBtn">Inbox</button>
+                <button class="my-ads-btn secondary" id="openCompareBtn">
+                    Compare (<span id="compareCountBadge">0</span>)
+                </button>
+                <button class="my-ads-btn secondary" id="themeToggleBtn">Dark mode</button>
+                <button class="my-ads-btn secondary" id="loginBtn">Нэвтрэх</button>
+                <button class="my-ads-btn secondary" id="logoutBtn" style="display:none;">Гарах</button>
+                <button class="post-ad-btn" id="openAddAdModalBtn">Зар нэмэх</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="current-user-box">
+            <div class="current-user-row">
+                <input type="text" id="currentUserInput" placeholder="Нэвтэрсэн хэрэглэгч" readonly>
+                <button class="my-ads-btn" id="saveUserBtn">Нэвтрэх / Бүртгүүлэх</button>
+                <button class="my-ads-btn secondary" id="clearUserBtn">Гарах</button>
+            </div>
+            <div class="current-user-status" id="currentUserStatus">Одоогийн хэрэглэгч: нэвтрээгүй</div>
+        </div>
+
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-label">Нийт зар</div>
+                <div class="stat-value" id="totalAdsStat">0</div>
+            </div>
+
+            <div class="quick-filters" id="quickFilters">
+                <button class="quick-filter-btn active" data-quick="all">Бүгд</button>
+                <button class="quick-filter-btn" data-quick="vip">VIP</button>
+                <button class="quick-filter-btn" data-quick="top">TOP</button>
+                <button class="quick-filter-btn" data-quick="active">Идэвхтэй</button>
+                <button class="quick-filter-btn" data-quick="sold">Зарагдсан</button>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">VIP зар</div>
+                <div class="stat-value" id="vipAdsStat">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">TOP зар</div>
+                <div class="stat-value" id="topAdsStat">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Идэвхтэй</div>
+                <div class="stat-value" id="activeAdsStat">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Зарагдсан</div>
+                <div class="stat-value" id="soldAdsStat">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Нийт үзэлт</div>
+                <div class="stat-value" id="totalViewsStat">0</div>
+            </div>
+        </div>
+
+        <div id="profileBox" class="profile-card" style="display:none;">
+            <div class="profile-card-top">
+                <div class="profile-avatar" id="profileAvatar">A</div>
+
+                <div class="profile-head-text">
+                    <div class="profile-title">Миний профайл</div>
+                    <div class="profile-summary" id="profileSummary">Нэвтрээгүй</div>
+                </div>
+
+                <button class="my-ads-btn secondary" id="toggleProfileEditBtn">Нэр засах</button>
+            </div>
+
+            <div id="profileInfoView" class="profile-info-grid">
+                <div class="profile-info-item">
+                    <div class="profile-info-label">Нэр</div>
+                    <div class="profile-info-value" id="profileNameText">-</div>
+                </div>
+
+                <div class="profile-info-item">
+                    <div class="profile-info-label">Утас</div>
+                    <div class="profile-info-value" id="profilePhoneText">-</div>
+                </div>
+
+                <div class="profile-info-item">
+                    <div class="profile-info-label">Role</div>
+                    <div class="profile-info-value" id="profileRoleText">-</div>
+                </div>
+            </div>
+
+            <div id="profileEditBox" class="profile-edit-box" style="display:none;">
+                <div class="profile-info-label" style="margin-bottom:8px;">Шинэ нэр</div>
+                <input type="text" id="profileNameInput" placeholder="Нэрээ оруулна уу">
+
+                <div class="profile-edit-actions">
+                    <button class="submit-btn" id="saveProfileBtn">Хадгалах</button>
+                    <button class="cancel-btn" id="cancelProfileEditBtn" type="button"
+                        style="display:inline-block;">Болих</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <div class="search-row">
+                <input type="text" id="searchInput" placeholder="Юу хайж байна?">
+                <button class="cancel-btn" id="resetFilterBtn" type="button" style="display:block;">Цэвэрлэх</button>
+                <select id="categorySelect">
+                    <option value="all">Бүх ангилал</option>
+                    <option value="Үл хөдлөх">Үл хөдлөх</option>
+                    <option value="Автомашин">Автомашин</option>
+                    <option value="Хувцас хэрэглэл">Хувцас хэрэглэл</option>
+                    <option value="Ажлын зар">Ажлын зар</option>
+                    <option value="Хүүхдийн бараа">Хүүхдийн бараа</option>
+                    <option value="Компьютер сэлбэг хэрэгсэл">Компьютер сэлбэг хэрэгсэл</option>
+                    <option value="Утас, дугаар">Утас, дугаар</option>
+                    <option value="Цахилгаан бараа">Цахилгаан бараа</option>
+                    <option value="Гэр ахуйн бараа">Гэр ахуйн бараа</option>
+                    <option value="Төхөөрөмж, материал, түлш">Төхөөрөмж, материал, түлш</option>
+                    <option value="Амралт, спорт, хобби">Амралт, спорт, хобби</option>
+                    <option value="Эрүүл мэнд, гоо сайхан, хүнс">Эрүүл мэнд, гоо сайхан, хүнс</option>
+                    <option value="Мал амьтан, ургамал">Мал амьтан, ургамал</option>
+                    <option value="Үйлчилгээ">Үйлчилгээ</option>
+                </select>
+                <input type="number" id="minPriceInput" placeholder="Доод үнэ">
+                <input type="number" id="maxPriceInput" placeholder="Дээд үнэ">
+                <select id="sortSelect">
+                    <option value="newest">Хамгийн шинэ</option>
+                    <option value="oldest">Хамгийн хуучин</option>
+                    <option value="price-low">Хамгийн хямд</option>
+                    <option value="price-high">Хамгийн үнэтэй</option>
+                    <option value="vip-first">VIP эхэнд</option>
+                </select>
+                <button class="search-btn" id="searchBtn">Хайх</button>
+            </div>
+
+            <div id="searchHistoryBox" class="search-history-box"></div>
+        </div>
+
+        <div class="top-categories">
+            <div class="top-category-item top-category-item-expandable" data-category="Үл хөдлөх">
+                <div class="top-category-main">
+                    <span class="top-category-icon">🏠</span>
+                    <span class="top-category-text">Үл хөдлөх</span>
+                </div>
+
+                <div id="subcategoryPanel" class="inline-subcategory-panel">
+                    <button class="subcategory-link no-arrow" type="button" data-subcategory="all">
+                        Категори дахь бүх зарыг харах
+                    </button>
+                    <button class="subcategory-link" type="button" data-subcategory="Үл хөдлөх зарна">
+                        Үл хөдлөх зарна
+                    </button>
+                    <button class="subcategory-link" type="button" data-subcategory="Үл хөдлөх түрээслүүлнэ">
+                        Үл хөдлөх түрээслүүлнэ
+                    </button>
+                </div>
+            </div>
+
+            <div class="top-category-item" data-category="Автомашин">
+                <span class="top-category-icon">🚗</span>
+                <span class="top-category-text">Автомашин</span>
+            </div>
+
+            <div class="top-category-item" data-category="Хувцас хэрэглэл">
+                <span class="top-category-icon">👗</span>
+                <span class="top-category-text">Хувцас хэрэглэл</span>
+            </div>
+
+            <div class="top-category-item" data-category="Ажлын зар">
+                <span class="top-category-icon">💼</span>
+                <span class="top-category-text">Ажлын зар</span>
+            </div>
+
+            <div class="top-category-item" data-category="Хүүхдийн бараа">
+                <span class="top-category-icon">🧸</span>
+                <span class="top-category-text">Хүүхдийн бараа</span>
+            </div>
+
+            <div class="top-category-item" data-category="Компьютер сэлбэг хэрэгсэл">
+                <span class="top-category-icon">💻</span>
+                <span class="top-category-text">Компьютер сэлбэг хэрэгсэл</span>
+            </div>
+
+            <div class="top-category-item" data-category="Утас, дугаар">
+                <span class="top-category-icon">📱</span>
+                <span class="top-category-text">Утас, дугаар</span>
+            </div>
+
+            <div class="top-category-item" data-category="Цахилгаан бараа">
+                <span class="top-category-icon">📻</span>
+                <span class="top-category-text">Цахилгаан бараа</span>
+            </div>
+
+            <div class="top-category-item" data-category="Гэр ахуйн бараа">
+                <span class="top-category-icon">🛋️</span>
+                <span class="top-category-text">Гэр ахуйн бараа</span>
+            </div>
+
+            <div class="top-category-item" data-category="Төхөөрөмж, материал, түлш">
+                <span class="top-category-icon">🛠️</span>
+                <span class="top-category-text">Төхөөрөмж, материал, түлш</span>
+            </div>
+
+            <div class="top-category-item" data-category="Амралт, спорт, хобби">
+                <span class="top-category-icon">🏀</span>
+                <span class="top-category-text">Амралт, спорт, хобби</span>
+            </div>
+
+            <div class="top-category-item" data-category="Эрүүл мэнд, гоо сайхан, хүнс">
+                <span class="top-category-icon">🍎</span>
+                <span class="top-category-text">Эрүүл мэнд, гоо сайхан, хүнс</span>
+            </div>
+
+            <div class="top-category-item" data-category="Мал амьтан, ургамал">
+                <span class="top-category-icon">🐕</span>
+                <span class="top-category-text">Мал амьтан, ургамал</span>
+            </div>
+
+            <div class="top-category-item" data-category="Үйлчилгээ">
+                <span class="top-category-icon">📊</span>
+                <span class="top-category-text">Үйлчилгээ</span>
+            </div>
+        </div>
+
+        <div class="page-layout">
+
+            <div class="page-layout">
+                <aside class="sidebar">
+                    <div class="sidebar-title">Ангиллууд</div>
+                    <small>Ангиллаар хурдан шүүх</small>
+
+                    <div class="category-list">
+                        <div class="category-item active" data-category="all">Бүх ангилал</div>
+                        <div class="category-item" data-category="Үл хөдлөх">Үл хөдлөх</div>
+                        <div class="category-item" data-category="Автомашин">Автомашин</div>
+                        <div class="category-item" data-category="Хувцас хэрэглэл">Хувцас хэрэглэл</div>
+                        <div class="category-item" data-category="Ажлын зар">Ажлын зар</div>
+                        <div class="category-item" data-category="Хүүхдийн бараа">Хүүхдийн бараа</div>
+                        <div class="category-item" data-category="Компьютер сэлбэг хэрэгсэл">Компьютер сэлбэг хэрэгсэл
+                        </div>
+                        <div class="category-item" data-category="Утас, дугаар">Утас, дугаар</div>
+                        <div class="category-item" data-category="Цахилгаан бараа">Цахилгаан бараа</div>
+                        <div class="category-item" data-category="Гэр ахуйн бараа">Гэр ахуйн бараа</div>
+                        <div class="category-item" data-category="Төхөөрөмж, материал, түлш">Төхөөрөмж, материал, түлш
+                        </div>
+                        <div class="category-item" data-category="Амралт, спорт, хобби">Амралт, спорт, хобби</div>
+                        <div class="category-item" data-category="Эрүүл мэнд, гоо сайхан, хүнс">Эрүүл мэнд, гоо сайхан,
+                            хүнс
+                        </div>
+                        <div class="category-item" data-category="Мал амьтан, ургамал">Мал амьтан, ургамал</div>
+                        <div class="category-item" data-category="Үйлчилгээ">Үйлчилгээ</div>
+                    </div>
+
+
+                    <div class="sidebar-title" style="font-size:18px;">Товч зөвлөгөө</div>
+                    <small>Sort сонголтоор заруудын дарааллыг удирдаж болно.</small>
+                </aside>
+
+                <main>
+                    <div id="addAdModal" class="contact-modal">
+                        <div class="contact-modal-content" style="max-width:760px;">
+                            <button id="closeAddAdModalBtn" class="contact-close-btn">✕</button>
+
+                            <div class="add-form clean-ad-form"
+                                style="box-shadow:none; border:none; padding:0; margin:0; background:transparent;">
+                                <h2 id="formTitle">Шинэ зар нэмэх</h2>
+                                <div class="edit-mode-text" id="editModeText">Та одоо зар засварлаж байна</div>
+
+                                <div class="form-stack">
+                                    <div class="form-row">
+                                        <label for="sellerInput" class="form-label">Зар оруулагч</label>
+                                        <div class="form-field">
+                                            <input type="text" id="sellerInput" placeholder="Нэр оруулна уу">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <label for="phoneInput" class="form-label">Утасны дугаар</label>
+                                        <div class="form-field">
+                                            <input type="text" id="phoneInput" placeholder="Жишээ: 99112233">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <label for="titleInput" class="form-label">Зарын гарчиг</label>
+                                        <div class="form-field">
+                                            <input type="text" id="titleInput" placeholder="Жишээ: Prius 30 зарна">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <label for="priceInput" class="form-label">Үнэ</label>
+                                        <div class="form-field">
+                                            <input type="text" id="priceInput" placeholder="Үнэ оруулна уу">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <label for="locationInput" class="form-label">Байршил</label>
+                                        <div class="form-field">
+                                            <input type="text" id="locationInput" placeholder="Жишээ: Баянхонгор">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <label for="newCategoryInput" class="form-label">Ангилал</label>
+                                        <div class="form-field">
+                                            <select id="newCategoryInput">
+                                                <option value="">Сонгох</option>
+                                                <option value="Үл хөдлөх">Үл хөдлөх</option>
+                                                <option value="Автомашин">Автомашин</option>
+                                                <option value="Хувцас хэрэглэл">Хувцас хэрэглэл</option>
+                                                <option value="Ажлын зар">Ажлын зар</option>
+                                                <option value="Хүүхдийн бараа">Хүүхдийн бараа</option>
+                                                <option value="Компьютер сэлбэг хэрэгсэл">Компьютер сэлбэг хэрэгсэл
+                                                </option>
+                                                <option value="Утас, дугаар">Утас, дугаар</option>
+                                                <option value="Цахилгаан бараа">Цахилгаан бараа</option>
+                                                <option value="Гэр ахуйн бараа">Гэр ахуйн бараа</option>
+                                                <option value="Төхөөрөмж, материал, түлш">Төхөөрөмж, материал, түлш
+                                                </option>
+                                                <option value="Амралт, спорт, хобби">Амралт, спорт, хобби</option>
+                                                <option value="Эрүүл мэнд, гоо сайхан, хүнс">Эрүүл мэнд, гоо сайхан,
+                                                    хүнс
+                                                </option>
+                                                <option value="Мал амьтан, ургамал">Мал амьтан, ургамал</option>
+                                                <option value="Үйлчилгээ">Үйлчилгээ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row" id="subcategoryRow" style="display:none;">
+                                        <label for="subcategoryInput" class="form-label">Төрөл</label>
+                                        <div class="form-field">
+                                            <select id="subcategoryInput">
+                                                <option value="">Сонгох</option>
+                                                <option value="Үл хөдлөх зарна">Үл хөдлөх зарна</option>
+                                                <option value="Үл хөдлөх түрээслүүлнэ">Үл хөдлөх түрээслүүлнэ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <label for="statusInput" class="form-label">Төлөв</label>
+                                        <div class="form-field">
+                                            <select id="statusInput">
+                                                <option value="Идэвхтэй">Идэвхтэй</option>
+                                                <option value="Зарагдсан">Зарагдсан</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row form-row-top">
+                                        <label for="descriptionInput" class="form-label">Тайлбар</label>
+                                        <div class="form-field">
+                                            <textarea id="descriptionInput"
+                                                placeholder="Зарын дэлгэрэнгүй тайлбар"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row form-row-top">
+                                        <label for="imageInput" class="form-label">Зураг</label>
+                                        <div class="form-field">
+                                            <input type="file" id="imageInput" accept="image/*" multiple>
+                                            <div class="form-help">Нэгээс олон зураг сонгож болно.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row form-row-top">
+                                        <div class="form-label">Онцлох</div>
+                                        <div class="form-field">
+                                            <div class="checkbox-row">
+                                                <input type="checkbox" id="vipInput">
+                                                <label for="vipInput">VIP зар болгох</label>
+                                            </div>
+
+                                            <div class="checkbox-row" style="margin-bottom:0;">
+                                                <input type="checkbox" id="topInput">
+                                                <label for="topInput">TOP зар болгох</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row form-row-top">
+                                        <div class="form-label">Preview</div>
+                                        <div class="form-field">
+                                            <div class="preview-box" id="imagePreviewBox"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions clean-form-actions">
+                                    <button class="submit-btn" id="addAdBtn">Зар нэмэх</button>
+                                    <button class="cancel-btn" id="cancelEditBtn" type="button">Болих</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-header">
+                        <div>
+                            <div class="results-title">Зарууд</div>
+                            <div class="results-count" id="resultsCount">0 зар</div>
+                        </div>
+                        <div class="filter-mode" id="filterModeText">Одоогийн горим: Бүх зар</div>
+                    </div>
+
+                    <div id="topSection"></div>
+                    <div id="vipSection"></div>
+                    <div id="normalSection"></div>
+                    <div class="pagination" id="pagination"></div>
+                    <div id="pageInfo" style="text-align:center; color:#64748b; margin-top:8px; font-size:14px;"></div>
+                </main>
+            </div>
+        </div>
+
+        <div id="inboxModal" class="contact-modal">
+            <div class="contact-modal-content" style="max-width:700px;">
+                <button id="closeInboxModal" class="contact-close-btn">✕</button>
+                <h2>Ирсэн мессежүүд</h2>
+                <div id="inboxList"></div>
+            </div>
+        </div>
+
+        <div id="compareModal" class="contact-modal">
+            <div class="contact-modal-content" style="max-width:1000px;">
+                <button id="closeCompareModal" class="contact-close-btn">✕</button>
+                <h2>Зар харьцуулах</h2>
+                <div id="compareContent"></div>
+            </div>
+        </div>
+
+        <div id="authModal" class="contact-modal">
+            <div class="contact-modal-content" style="max-width:420px;">
+                <button id="closeAuthModalBtn" class="contact-close-btn">✕</button>
+                <h2 id="authModalTitle">Нэвтрэх</h2>
+
+                <select id="authModeSelect"
+                    style="width:100%; padding:12px; border-radius:10px; border:1px solid #d1d5db; margin-bottom:12px;">
+                    <option value="login">Нэвтрэх</option>
+                    <option value="register">Бүртгүүлэх</option>
+                </select>
+
+                <input type="text" id="authNameInput" placeholder="Таны нэр"
+                    style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:10px; margin-bottom:12px; display:none;">
+
+                <input type="text" id="authPhoneInput" placeholder="Утасны дугаар"
+                    style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:10px; margin-bottom:12px;">
+
+                <input type="password" id="authPasswordInput" placeholder="Нууц үг"
+                    style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:10px; margin-bottom:12px;">
+
+                <select id="authRoleSelect"
+                    style="width:100%; padding:12px; border-radius:10px; border:1px solid #d1d5db; margin-bottom:12px; display:none;">
+                    <option value="viewer">Viewer</option>
+                    <option value="seller" selected>Seller</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <button id="authSubmitBtn" class="submit-btn" style="width:100%;">Нэвтрэх</button>
+            </div>
+        </div>
+        <footer>
+            © 2026 Баянхонгор Аймгийн Зар
+
+
+            <div id="toastContainer" class="toast-container"></div>
+
+            <div id="deleteModal" class="contact-modal">
+                <div class="contact-modal-content" style="max-width:420px;">
+                    <button id="closeDeleteModal" class="contact-close-btn">✕</button>
+                    <h2>Зар устгах уу?</h2>
+                    <p id="deleteModalText">Та энэ зарыг устгах гэж байна.</p>
+
+                    <div style="display:flex; gap:10px; margin-top:18px;">
+                        <button id="confirmDeleteBtn" class="delete-btn" style="flex:1;">Тийм, устга</button>
+                        <button id="cancelDeleteBtn" class="my-ads-btn secondary" style="flex:1;">Болих</button>
+                    </div>
+                </div>
+            </div>
+
+            <script src="script.js"></script>
+</body>
+
+</html>
